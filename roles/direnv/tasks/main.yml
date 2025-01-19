@@ -1,0 +1,19 @@
+---
+- name: Install direnv
+  become: true
+  ansible.builtin.dnf:
+    name: direnv
+    state: present
+
+- name: Ensure .zshrc exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    state: touch
+    mode: '0644'
+
+- name: Add direnv hook to .zshrc
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    line: 'eval "$(direnv hook zsh)"'
+    state: present
+    regexp: '^eval "\$\(direnv hook zsh\)"'

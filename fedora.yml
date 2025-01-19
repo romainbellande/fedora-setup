@@ -4,3 +4,6 @@
   roles:
     - ohmyzsh
     - yadm
+    - direnv
+    - flatpak
+    - stremio

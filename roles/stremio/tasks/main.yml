@@ -1,0 +1,5 @@
+---
+- name: Install Stremio
+  community.general.flatpak:
+    name: com.stremio.Stremio
+    state: present
