@@ -1,0 +1,24 @@
+---
+- name: Add YADM repository
+  become: true
+  ansible.builtin.get_url:
+    url: https://download.opensuse.org/repositories/home:TheLocehiliosan:yadm/Fedora_41/home:TheLocehiliosan:yadm.repo
+    dest: /etc/yum.repos.d/home:TheLocehiliosan:yadm.repo
+    mode: '0644'
+
+- name: Install YADM
+  become: true
+  ansible.builtin.dnf:
+    name: yadm
+    state: present
+
+- name: Check if YADM config exists
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.config/yadm"
+  register: yadm_config
+
+- name: Initialize YADM if not already configured
+  ansible.builtin.command: yadm init
+  when: not yadm_config.stat.exists
+  args:
+    creates: "{{ ansible_env.HOME }}/.config/yadm"

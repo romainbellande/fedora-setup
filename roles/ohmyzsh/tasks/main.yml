@@ -1,0 +1,38 @@
+---
+- name: Install required packages
+  become: true
+  ansible.builtin.dnf:
+    name:
+      - zsh
+      - git
+      - curl
+    state: present
+
+- name: Check if Oh My Zsh is installed
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.oh-my-zsh"
+  register: oh_my_zsh_installed
+
+- name: Download and install Oh My Zsh
+  ansible.builtin.shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  when: not oh_my_zsh_installed.stat.exists
+
+- name: Set Zsh as default shell
+  become: true
+  ansible.builtin.user:
+    name: "{{ ansible_env.USER }}"
+    shell: /bin/zsh
+
+- name: Create .zshrc backup
+  ansible.builtin.copy:
+    src: "{{ ansible_env.HOME }}/.zshrc"
+    dest: "{{ ansible_env.HOME }}/.zshrc.backup"
+    remote_src: yes
+    force: no
+  when: oh_my_zsh_installed.stat.exists
+
+- name: Configure ZSH theme
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    regexp: '^ZSH_THEME='
+    line: 'ZSH_THEME="robbyrussell"'
