@@ -1,0 +1,13 @@
+---
+- name: Enable wezterm via Copr
+  become: true
+  community.general.copr:
+    host: copr.fedorainfracloud.org
+    state: enabled
+    name: wezfurlong/wezterm-nightly
+
+- name: Install wezterm
+  become: true
+  ansible.builtin.dnf:
+    name: wezterm
+    state: present

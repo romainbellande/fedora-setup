@@ -6,4 +6,6 @@
     - yadm
     - direnv
     - flatpak
-    - stremio
+    - polybar
+    - wezterm
+    # - stremio

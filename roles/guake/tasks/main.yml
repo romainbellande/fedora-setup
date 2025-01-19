@@ -1,0 +1,6 @@
+---
+- name: Install guake
+  become: true
+  ansible.builtin.dnf:
+    name: guake
+    state: present

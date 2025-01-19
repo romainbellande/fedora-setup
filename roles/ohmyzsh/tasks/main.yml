@@ -54,7 +54,6 @@
   ansible.builtin.git:
     repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
     dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
-    state: present
 
 - name: Install zsh-syntax-highlighting
   become: true
@@ -66,16 +65,18 @@
   ansible.builtin.git:
     repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
     dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
-    state: present
 
 - name: Clone you-should-use git directory
   ansible.builtin.git:
     repo: 'https://github.com/MichaelAquilina/zsh-you-should-use.git'
     dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/you-should-use"
-    state: present
 
 - name: Clone zsh-bat git directory
   ansible.builtin.git:
     repo: 'https://github.com/fdellwing/zsh-bat.git'
     dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-bat"
-    state: present
+
+- name: Clone powerlevel10k git directory
+  ansible.builtin.git:
+    repo: 'https://github.com/romkatv/powerlevel10k.git'
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/themes/powerlevel10k"
