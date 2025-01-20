@@ -1,0 +1,51 @@
+---
+- name: Install dnf-plugins-core
+  become: true
+  ansible.builtin.dnf:
+    name: dnf-plugins-core
+    state: present
+
+- name: Add docker ce repository
+  become: true
+  ansible.builtin.get_url:
+    url: https://download.docker.com/linux/fedora/docker-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo
+    mode: '0644'
+
+- name: Install docker
+  become: true
+  ansible.builtin.dnf:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: present
+
+- name: Start and enable Docker service
+  become: true
+  ansible.builtin.systemd:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Create docker group
+  become: true
+  ansible.builtin.group:
+    name: docker
+    state: present
+
+- name: Add user to docker group
+  become: true
+  ansible.builtin.user:
+    name: "{{ lookup('env', 'USER') }}"
+    groups: docker
+    append: true
+
+- name: Test Docker installation
+  become: true
+  ansible.builtin.command:
+    cmd: docker run hello-world
+  register: docker_test
+  changed_when: false

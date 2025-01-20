@@ -1,0 +1,6 @@
+---
+- name: Install ulauncher
+  become: true
+  ansible.builtin.dnf:
+    name: ulauncher
+    state: present

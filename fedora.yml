@@ -8,4 +8,8 @@
     - flatpak
     - polybar
     - wezterm
-    # - stremio
+    - scw-cli
+    - guake
+    - rofi
+    - ulauncher
+    - docker

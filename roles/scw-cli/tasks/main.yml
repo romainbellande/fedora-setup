@@ -1,0 +1,12 @@
+---
+- name: Download and execute Scaleway CLI installation script
+  ansible.builtin.shell: curl -s https://raw.githubusercontent.com/scaleway/scaleway-cli/master/scripts/get.sh | sh
+  args:
+    creates: /usr/local/bin/scw
+  become: true
+
+- name: Create Scaleway CLI config directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/scw"
+    state: directory
+    mode: '0755'

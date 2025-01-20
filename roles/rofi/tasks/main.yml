@@ -1,0 +1,35 @@
+---
+- name: Install rofi package
+  ansible.builtin.dnf:
+    name: rofi
+    state: present
+  become: true
+
+- name: Create temporary directory for rofi
+  ansible.builtin.tempfile:
+    state: directory
+    suffix: rofi
+  register: rofi_temp_dir
+
+- name: Clone adi1090x/rofi repository
+  ansible.builtin.git:
+    repo: https://github.com/adi1090x/rofi.git
+    dest: "{{ rofi_temp_dir.path }}"
+    depth: 1
+
+- name: Make setup script executable
+  ansible.builtin.file:
+    path: "{{ rofi_temp_dir.path }}/setup.sh"
+    mode: '0755'
+
+- name: Run setup script
+  ansible.builtin.command:
+    cmd: ./setup.sh
+    chdir: "{{ rofi_temp_dir.path }}"
+  args:
+    creates: "{{ ansible_env.HOME }}/.config/rofi/launchers"
+
+- name: Remove temporary directory
+  ansible.builtin.file:
+    path: "{{ rofi_temp_dir.path }}"
+    state: absent
