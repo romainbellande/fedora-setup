@@ -1,0 +1,6 @@
+---
+- name: Install just command runner
+  ansible.builtin.dnf:
+    name: just
+    state: present
+  become: true

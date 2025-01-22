@@ -1,0 +1,6 @@
+---
+- name: Install gamemode
+  become: true
+  ansible.builtin.dnf:
+    name: gamemode
+    state: present

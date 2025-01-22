@@ -1,0 +1,8 @@
+---
+- name: Install fuse
+  ansible.builtin.dnf:
+    name:
+     - fuse
+     - fuse-libs
+    state: present
+  become: true
