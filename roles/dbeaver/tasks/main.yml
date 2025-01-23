@@ -1,0 +1,8 @@
+---
+
+- name: Install dbeaver
+  become: true
+  ansible.builtin.dnf:
+    name: https://dbeaver.io/files/dbeaver-ce-latest-stable.x86_64.rpm
+    state: present
+    disable_gpg_check: true
