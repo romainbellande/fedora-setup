@@ -1,0 +1,5 @@
+- name: Install thunderbird
+  become: true
+  ansible.builtin.dnf:
+    name: thunderbird
+    state: present

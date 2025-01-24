@@ -1,0 +1,8 @@
+---
+- name: Install screenshots tools
+  become: true
+  ansible.builtin.dnf:
+    name:
+      - xclip
+      - viewnior
+    state: present

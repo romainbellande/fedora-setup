@@ -1,0 +1,7 @@
+---
+- name: Install peazip
+  become: true
+  ansible.builtin.dnf:
+    name: https://github.com/peazip/PeaZip/releases/download/10.2.0/peazip-10.2.0.LINUX.GTK2-1.x86_64.rpm
+    state: present
+    disable_gpg_check: true

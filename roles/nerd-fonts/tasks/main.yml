@@ -1,0 +1,24 @@
+---
+- name: Create JetBrainsMono folder
+  become: true
+  ansible.builtin.file:
+    path: /usr/local/share/fonts/JetBrainsMono
+    state: directory
+    mode: '0755'
+
+- name: Install nerd fonts
+  become: true
+  ansible.builtin.unarchive:
+    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/JetBrainsMono.zip
+    remote_src: true
+    dest: /usr/local/share/fonts/JetBrainsMono
+    mode: '0644'
+
+
+- name: Update SELinux file context
+  become: true
+  ansible.builtin.command: restorecon -irv /usr/local/share/fonts/JetBrainsMono
+
+- name: Update font cache
+  become: true
+  ansible.builtin.command: fc-cache -fv

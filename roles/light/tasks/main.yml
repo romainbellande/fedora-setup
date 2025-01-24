@@ -1,0 +1,6 @@
+---
+- name: Install light
+  become: true
+  ansible.builtin.dnf:
+    name: light
+    state: present
