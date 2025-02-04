@@ -1,0 +1,6 @@
+---
+- name: Install cursor IDE
+  ansible.builtin.get_url:
+    url: https://download.todesktop.com/230313mzl4w4u92/cursor-0.44.11-build-250103fqxdt5u9z-x86_64.AppImage
+    dest: ~/.local/bin/cursor
+    mode: "0755"

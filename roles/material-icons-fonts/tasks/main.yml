@@ -1,0 +1,6 @@
+---
+- name: Install material-icons-fonts
+  become: true
+  ansible.builtin.dnf:
+    name: material-icons-fonts
+    state: present

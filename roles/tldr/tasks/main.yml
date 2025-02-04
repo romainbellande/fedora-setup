@@ -1,0 +1,6 @@
+---
+- name: Install tldr
+  become: true
+  ansible.builtin.dnf:
+    name: tldr
+    state: present

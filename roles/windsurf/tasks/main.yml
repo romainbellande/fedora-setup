@@ -1,0 +1,6 @@
+---
+- name: Install Windsurf
+  ansible.builtin.unarchive:
+    src: https://windsurf-stable.codeiumdata.com/linux-x64/stable/be4251dfb74e60e80fa973d61f3505da1ac9032e/Windsurf-linux-x64-1.2.2.tar.gz
+    remote_src: true
+    dest: ~/

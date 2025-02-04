@@ -1,0 +1,12 @@
+---
+- name: Install podman
+  become: true
+  ansible.builtin.dnf:
+    name:
+      - podman
+      - podman-compose
+    state: present
+
+- name: Run setup script
+  ansible.builtin.command:
+    cmd: podman completion -f "${fpath[1]}/_podman" zsh
